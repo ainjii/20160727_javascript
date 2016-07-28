@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Word Scramble</title>
+</head>
+<body>
+    <h1>A Javascript Word Scramble Game</h1>
+
+    <script>
+        var WORDS = ["booger", "apple", "hackbright", "mango"];
+
+        var playing = true;
+
+        function scramble(word) {
+            // split word into array of characters
+            var wordArray = word.split("");
+
+            for(var i=0; i < wordArray.length; i++) {
+                var j = Math.floor(Math.random() * wordArray.length);
+
+                var firstLetter = wordArray[i];
+                wordArray[i] = wordArray[j];
+                wordArray[j] = firstLetter;
+            }
+
+            // consolidate character array into single string
+            return wordArray.join("");
+        }
+
+        while (playing) {
+            var correct = false;
+
+            // Grab a random word from the WORDS array
+            var index = Math.floor(Math.random() * (WORDS.length));
+            
+            // Grab the corresponding scrambled word from the SCRAMBLED array
+            var word = WORDS[index];
+            var scrambledWord = scramble(word);
+
+            while (!(correct)) {
+                // prompt the user to guess the original word when given the scrambled word
+                var userPrompt = "Scrambled word: " + scrambledWord + "\nGuess the original word:";
+                var guess = prompt(userPrompt).toLowerCase().trim();
+
+                // If the user guesses wrong, tell them they were wrong and the right word.
+                if (guess === WORDS[index]) {
+                    alert("You guessed right!");
+                    correct = true;
+                } else {
+                    // If the user guesses the correct word, congratulate them.
+                    alert("You guessed incorrectly :( Try again.");
+                }
+            }
+
+            playing = confirm("Press OK to keep playing or Cancel to quit");
+
+            // What does confirm() return?
+            // What does setting the playing variable do?
+        }
+    </script>
+    
+</body>
+</html>
